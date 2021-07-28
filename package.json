@@ -44,6 +44,7 @@
   "main": "index.js",
   "types": "index.d.ts",
   "dependencies": {
+    "@gorhom/bottom-sheet": "^2",
     "react-native-gesture-handler": "*"
   },
   "peerDependencies": {
