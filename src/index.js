@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  View,
-  ScrollView,
-  Platform,
-  TextInput,
-} from "react-native";
+import { StyleSheet, Text, View, Platform, TextInput } from "react-native";
 
 import { TouchableOpacity } from "@gorhom/bottom-sheet";
+
+import { ScrollView } from "react-native-gesture-handler";
 
 // Icon
 import Feather from "react-native-vector-icons/Feather";
