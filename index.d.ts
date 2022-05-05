@@ -65,6 +65,7 @@ declare module "react-native-dropdown-picker" {
     onChangeItem?: (item: any, index: number) => void;
     onChangeList?: (items: any, callback: () => void) => void;
     renderSeperator?: () => JSX.Element;
+    libUsed?: "gorhom" | "gesture";
   };
   const DropDownPicker: ComponentType<DropDownPickerProps>;
   export default DropDownPicker;
