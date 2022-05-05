@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View, Platform, TextInput } from "react-native";
 
+import { TouchableOpacity as TouchOpacityBS } from "@gorhom/bottom-sheet";
+
 import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 
 // Icon
@@ -447,70 +449,141 @@ class DropDownPicker extends React.Component {
         ]}
         {...this.props.containerProps}
       >
-        <TouchableOpacity
-          onLayout={(event) => this.getLayout(event.nativeEvent.layout)}
-          disabled={disabled}
-          onPress={() => this.toggle()}
-          activeOpacity={1}
-          style={[
-            styles.dropDown,
-            {
-              flexDirection: "row",
-              flex: 1,
-            },
-            this.props.style,
-            this.state.isVisible && styles.noBottomRadius,
-          ]}
-        >
-          {this.state.choice.icon && !multiple && this.state.choice.icon()}
-          <Text
+        {this.props.libUsed === "gesture" && (
+          <TouchableOpacity
+            onLayout={(event) => this.getLayout(event.nativeEvent.layout)}
+            disabled={disabled}
+            onPress={() => this.toggle()}
+            activeOpacity={1}
             style={[
-              { color: "#000" }, // default label color
-              this.props.globalTextStyle,
-              { opacity, flex: 1 },
+              styles.dropDown,
               {
-                marginLeft:
-                  (this.props.labelStyle.hasOwnProperty("textAlign") &&
-                    this.props.labelStyle.textAlign === "left") ||
-                  !this.props.labelStyle.hasOwnProperty("textAlign")
-                    ? 5
-                    : 0,
-                marginRight:
-                  this.props.labelStyle.hasOwnProperty("textAlign") &&
-                  this.props.labelStyle.textAlign === "right"
-                    ? 5
-                    : 0,
+                flexDirection: "row",
+                flex: 1,
               },
-              this.state.choice.icon ?? { marginLeft: 5 },
-              this.props.labelStyle,
-              this.state.choice.label !== null && this.props.selectedLabelStyle,
-              placeholderStyle,
+              this.props.style,
+              this.state.isVisible && styles.noBottomRadius,
             ]}
-            {...this.props.labelProps}
           >
-            {multiple
-              ? this.state.choice.length > 0
-                ? this.getNumberOfItems()
-                : placeholder
-              : label}
-          </Text>
+            {this.state.choice.icon && !multiple && this.state.choice.icon()}
+            <Text
+              style={[
+                { color: "#000" }, // default label color
+                this.props.globalTextStyle,
+                { opacity, flex: 1 },
+                {
+                  marginLeft:
+                    (this.props.labelStyle.hasOwnProperty("textAlign") &&
+                      this.props.labelStyle.textAlign === "left") ||
+                    !this.props.labelStyle.hasOwnProperty("textAlign")
+                      ? 5
+                      : 0,
+                  marginRight:
+                    this.props.labelStyle.hasOwnProperty("textAlign") &&
+                    this.props.labelStyle.textAlign === "right"
+                      ? 5
+                      : 0,
+                },
+                this.state.choice.icon ?? { marginLeft: 5 },
+                this.props.labelStyle,
+                this.state.choice.label !== null &&
+                  this.props.selectedLabelStyle,
+                placeholderStyle,
+              ]}
+              {...this.props.labelProps}
+            >
+              {multiple
+                ? this.state.choice.length > 0
+                  ? this.getNumberOfItems()
+                  : placeholder
+                : label}
+            </Text>
 
-          {this.props.showArrow && (
-            <View style={[styles.arrow]}>
-              <View style={[this.props.arrowStyle, { opacity }]}>
-                {!this.state.isVisible
-                  ? this.props.customArrowDown(
-                      this.props.arrowSize,
-                      this.props.arrowColor
-                    )
-                  : this.props.customArrowUp(
-                      this.props.arrowSize,
-                      this.props.arrowColor
-                    )}
+            {this.props.showArrow && (
+              <View style={[styles.arrow]}>
+                <View style={[this.props.arrowStyle, { opacity }]}>
+                  {!this.state.isVisible
+                    ? this.props.customArrowDown(
+                        this.props.arrowSize,
+                        this.props.arrowColor
+                      )
+                    : this.props.customArrowUp(
+                        this.props.arrowSize,
+                        this.props.arrowColor
+                      )}
+                </View>
               </View>
-            </View>
-          )}
-        </TouchableOpacity>
+            )}
+          </TouchableOpacity>
+        )}
+
+        {this.props.libUsed === "gorhom" && (
+          <TouchOpacityBS
+            onLayout={(event) => this.getLayout(event.nativeEvent.layout)}
+            disabled={disabled}
+            onPress={() => this.toggle()}
+            activeOpacity={1}
+            style={[
+              styles.dropDown,
+              {
+                flexDirection: "row",
+                flex: 1,
+              },
+              this.props.style,
+              this.state.isVisible && styles.noBottomRadius,
+            ]}
+          >
+            {this.state.choice.icon && !multiple && this.state.choice.icon()}
+            <Text
+              style={[
+                { color: "#000" }, // default label color
+                this.props.globalTextStyle,
+                { opacity, flex: 1 },
+                {
+                  marginLeft:
+                    (this.props.labelStyle.hasOwnProperty("textAlign") &&
+                      this.props.labelStyle.textAlign === "left") ||
+                    !this.props.labelStyle.hasOwnProperty("textAlign")
+                      ? 5
+                      : 0,
+                  marginRight:
+                    this.props.labelStyle.hasOwnProperty("textAlign") &&
+                    this.props.labelStyle.textAlign === "right"
+                      ? 5
+                      : 0,
+                },
+                this.state.choice.icon ?? { marginLeft: 5 },
+                this.props.labelStyle,
+                this.state.choice.label !== null &&
+                  this.props.selectedLabelStyle,
+                placeholderStyle,
+              ]}
+              {...this.props.labelProps}
+            >
+              {multiple
+                ? this.state.choice.length > 0
+                  ? this.getNumberOfItems()
+                  : placeholder
+                : label}
+            </Text>
+
+            {this.props.showArrow && (
+              <View style={[styles.arrow]}>
+                <View style={[this.props.arrowStyle, { opacity }]}>
+                  {!this.state.isVisible
+                    ? this.props.customArrowDown(
+                        this.props.arrowSize,
+                        this.props.arrowColor
+                      )
+                    : this.props.customArrowUp(
+                        this.props.arrowSize,
+                        this.props.arrowColor
+                      )}
+                </View>
+              </View>
+            )}
+          </TouchOpacityBS>
+        )}
         <View
           style={[
             styles.dropDown,
@@ -565,68 +638,138 @@ class DropDownPicker extends React.Component {
                     this.dropdownCoordinates[index] = layout.y;
                   }}
                 >
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() => this.select(item)}
-                    style={[
-                      styles.dropDownItem,
-                      this.props.itemStyle,
-                      this.state.choice.value === item.value &&
-                        this.props.activeItemStyle,
-                      {
-                        opacity: item?.disabled || false === true ? 0.3 : 1,
-                        alignItems: "center",
-                        ...(multiple
-                          ? {
-                              justifyContent: "space-between",
-                              ...(this.isSelected(item) &&
-                                this.props.activeItemStyle),
-                            }
-                          : {}),
-                      },
-                    ]}
-                    disabled={item?.disabled || false === true}
-                  >
-                    <View
-                      style={{
-                        flexDirection:
-                          this.props.itemStyle?.flexDirection ?? "row",
-                        ...(this.props.itemStyle.hasOwnProperty(
-                          "justifyContent"
-                        ) && {
-                          justifyContent: this.props.itemStyle.justifyContent,
-                        }),
-                        alignContent: "center",
-                      }}
+                  {this.props.libUsed === "gesture" && (
+                    <TouchableOpacity
+                      key={index}
+                      onPress={() => this.select(item)}
+                      style={[
+                        styles.dropDownItem,
+                        this.props.itemStyle,
+                        this.state.choice.value === item.value &&
+                          this.props.activeItemStyle,
+                        {
+                          opacity: item?.disabled || false === true ? 0.3 : 1,
+                          alignItems: "center",
+                          ...(multiple
+                            ? {
+                                justifyContent: "space-between",
+                                ...(this.isSelected(item) &&
+                                  this.props.activeItemStyle),
+                              }
+                            : {}),
+                        },
+                      ]}
+                      disabled={item?.disabled || false === true}
                     >
-                      {item.icon && item.icon()}
-                      <Text
-                        style={[
-                          this.props.globalTextStyle,
-                          this.props.labelStyle,
-                          multiple
-                            ? this.isSelected(item) &&
-                              this.props.activeLabelStyle
-                            : this.state.choice.value === item.value &&
-                              this.props.activeLabelStyle,
-                          {
-                            ...(item.icon && {
-                              marginHorizontal: 5,
-                            }),
-                          },
-                        ]}
-                        {...this.props.labelProps}
+                      <View
+                        style={{
+                          flexDirection:
+                            this.props.itemStyle?.flexDirection ?? "row",
+                          ...(this.props.itemStyle.hasOwnProperty(
+                            "justifyContent"
+                          ) && {
+                            justifyContent: this.props.itemStyle.justifyContent,
+                          }),
+                          alignContent: "center",
+                        }}
                       >
-                        {this.getLabel(item)}
-                      </Text>
-                    </View>
+                        {item.icon && item.icon()}
+                        <Text
+                          style={[
+                            this.props.globalTextStyle,
+                            this.props.labelStyle,
+                            multiple
+                              ? this.isSelected(item) &&
+                                this.props.activeLabelStyle
+                              : this.state.choice.value === item.value &&
+                                this.props.activeLabelStyle,
+                            {
+                              ...(item.icon && {
+                                marginHorizontal: 5,
+                              }),
+                            },
+                          ]}
+                          {...this.props.labelProps}
+                        >
+                          {this.getLabel(item)}
+                        </Text>
+                      </View>
 
-                    {this.state.props.multiple &&
-                      this.state.choice.findIndex(
-                        (i) => i.label === item.label && i.value === item.value
-                      ) > -1 &&
-                      this.props.customTickIcon()}
-                  </TouchableOpacity>
+                      {this.state.props.multiple &&
+                        this.state.choice.findIndex(
+                          (i) =>
+                            i.label === item.label && i.value === item.value
+                        ) > -1 &&
+                        this.props.customTickIcon()}
+                    </TouchableOpacity>
+                  )}
+
+                  {this.props.libUsed === "gorhom" && (
+                    <TouchOpacityBS
+                      key={index}
+                      onPress={() => this.select(item)}
+                      style={[
+                        styles.dropDownItem,
+                        this.props.itemStyle,
+                        this.state.choice.value === item.value &&
+                          this.props.activeItemStyle,
+                        {
+                          opacity: item?.disabled || false === true ? 0.3 : 1,
+                          alignItems: "center",
+                          ...(multiple
+                            ? {
+                                justifyContent: "space-between",
+                                ...(this.isSelected(item) &&
+                                  this.props.activeItemStyle),
+                              }
+                            : {}),
+                        },
+                      ]}
+                      disabled={item?.disabled || false === true}
+                    >
+                      <View
+                        style={{
+                          flexDirection:
+                            this.props.itemStyle?.flexDirection ?? "row",
+                          ...(this.props.itemStyle.hasOwnProperty(
+                            "justifyContent"
+                          ) && {
+                            justifyContent: this.props.itemStyle.justifyContent,
+                          }),
+                          alignContent: "center",
+                        }}
+                      >
+                        {item.icon && item.icon()}
+                        <Text
+                          style={[
+                            this.props.globalTextStyle,
+                            this.props.labelStyle,
+                            multiple
+                              ? this.isSelected(item) &&
+                                this.props.activeLabelStyle
+                              : this.state.choice.value === item.value &&
+                                this.props.activeLabelStyle,
+                            {
+                              ...(item.icon && {
+                                marginHorizontal: 5,
+                              }),
+                            },
+                          ]}
+                          {...this.props.labelProps}
+                        >
+                          {this.getLabel(item)}
+                        </Text>
+                      </View>
+
+                      {this.state.props.multiple &&
+                        this.state.choice.findIndex(
+                          (i) =>
+                            i.label === item.label && i.value === item.value
+                        ) > -1 &&
+                        this.props.customTickIcon()}
+                    </TouchOpacityBS>
+                  )}
+
                   {renderSeperator &&
                     index !== items.length - 1 &&
                     renderSeperator()}
@@ -693,6 +836,7 @@ DropDownPicker.defaultProps = {
   onClose: () => {},
   onChangeItem: () => {},
   onChangeList: () => {},
+  libUsed: "gorhom",
 };
 
 const styles = StyleSheet.create({
